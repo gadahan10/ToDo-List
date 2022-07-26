@@ -45,7 +45,7 @@ export class DataService {
 
     public loadDataFromLocalStorage(): Observable<Task[]> {
 		const data = localStorage.getItem('tasks');
-
+		console.log(data)
 		if (data != null) {
 			return of(JSON.parse(data));
 		}
@@ -94,5 +94,9 @@ export class DataService {
 		return of(HttpStatusCode.NotModified);
 	}
 
-	
+	public deleteAllTasks(): Observable<HttpStatusCode> {	
+		this.data = [];
+		localStorage.setItem('tasks', JSON.stringify(this.data));
+		return of(HttpStatusCode.Ok);
+	}
 }

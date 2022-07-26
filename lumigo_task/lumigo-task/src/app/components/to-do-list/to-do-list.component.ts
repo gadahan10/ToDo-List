@@ -104,4 +104,8 @@ export class ToDoListComponent implements OnInit, AfterViewInit {
 	onTaskSearch(): void {
 		this._taskService.onTaskSearch(this.searchVal);
 	}
+
+	public onReset(): void {
+		this._taskService.clearLists()
+	}
 }
