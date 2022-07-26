@@ -1,0 +1,71 @@
+.to-do-list-container {
+    // border: 1px solid #2e2d34;
+    background: white;
+    border-radius: 0.6rem;
+    height: 80rem;
+    width: 60rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 5rem;
+    overflow-y: overlay;
+
+    .to-do-list-top {               
+        width: 100%;
+        margin-bottom: 2rem;
+
+        
+    }
+
+    .custom-fields-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .custom-input-field {
+            height: 3.2rem;
+            width: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0px 4px 8px rgb(24 30 44 / 20%), 0px 1px 1px rgb(24 30 44 / 15%);
+            border-radius: 0.6rem;
+            border: 1px solid #e9e9e9;        
+            padding: 0.8rem 1.6rem;
+            margin-bottom: 1rem;
+            width: 43%;
+    
+            input {
+                background: transparent;
+                border: none;
+                font-size: 1.6rem;
+                max-width: 80%;
+                width: 80%;
+                color: #131314;
+    
+                &:active, &:focus {
+                    outline: none;
+                    
+                }
+            }
+    
+            img {
+                width: 1.8rem;
+                cursor: pointer;
+            }
+    
+            button {
+                background: transparent;
+                border: none;            
+            }
+        }
+    }
+
+    
+
+    .tasks-list {
+        width: 100%;
+        margin-top: 3rem;
+    }
+}

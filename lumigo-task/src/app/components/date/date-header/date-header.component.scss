@@ -1,0 +1,40 @@
+.date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+
+    &_day {
+        color: #131314;
+        font-size: 1.6rem; 
+        margin-top: .5rem;               
+    }
+
+    &_full {
+        display: flex;
+        color: #131314;
+
+        .left {
+            margin-right: 0.5rem;
+            font-size: 4.4rem;
+            font-weight: bold;
+        }
+
+        .right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            .month {
+                font-weight: bold;
+                font-size: 1.4rem;
+                margin: 0;
+            }
+
+            .year {
+                margin: 0;
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

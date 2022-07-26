@@ -1,0 +1,46 @@
+.tasks-list-container {
+    margin-bottom: 40px;
+
+    .list-top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.6rem;
+
+        .list-arrow {
+            width: 16px;
+            margin-right: 1rem;
+            filter: invert(7%) sepia(8%) saturate(223%) hue-rotate(201deg) brightness(98%) contrast(98%);
+            transition: .3s;
+
+            &.collapsed {
+                transform: rotate(-90deg);
+            }
+        }
+
+        .list-title {
+            font-size: 1.8rem;
+            color: #131314;
+            font-weight: bolder;
+        }
+    }
+
+    .list-items {
+        transition: 0.3s;        
+        
+     
+
+        &.hide-list {
+            transition: 0.3s;
+            
+            overflow: hidden;
+            height: 0;
+        }
+
+        .empty-message h4 {            
+            font-size: 1.4rem;
+            margin-left: 2.6rem;
+        }
+    }
+
+    
+}

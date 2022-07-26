@@ -1,0 +1,58 @@
+<div class="to-do-list-container">
+    <div class="to-do-list-top">
+        <date-header></date-header>
+        <progress-bar
+            [inProgress]="totalInProgress"
+            [pending]="totalPending"
+            [completed]="totalCompleted">
+        </progress-bar>
+    </div>
+
+    <div class="custom-fields-container" style="display: flex">
+    <!-- Add new field -->
+    <form class="custom-input-field" [formGroup]="newTaskForm" (ngSubmit)="submitNewTask()" >
+        <input type="text" placeholder="Add a new task" formControlName="title">        
+        <button type="submit"><img type="submit" src="assets/icons/plus.svg" alt="add"></button>
+    </form>
+
+    <!-- Search field -->
+    <div class="custom-input-field">
+        <input #searchInput type="text" placeholder="Search task" [(ngModel)]="searchVal" (keyup)="onTaskSearch()">
+        <img src="assets/icons/search.svg" alt="search">
+    </div></div>
+    
+    
+    <div class="tasks-list" cdkDropListGroup>
+
+        <!-- 1. In progress tasks -->      
+        <ng-container *ngIf="(inProgressTasks$ | async) as progressTasks">
+            <tasks-list      
+                [listIdentifier]="'inProgress'"            
+                [listTitle]="'In progress'"
+                [tasks]="progressTasks">
+        </tasks-list>
+        </ng-container>
+
+        <!-- 2. Pending --> 
+        <ng-container *ngIf="(pendingTasks$ | async) as pendingTasks">
+            <tasks-list
+                [listIdentifier]="'pending'"
+                [listTitle]="'Do later'" 
+                [tasks]="pendingTasks">
+            </tasks-list> 
+        </ng-container>
+
+        <!-- 3. completed -->
+        <ng-container *ngIf="(completedTasks$ | async) as completedTasks">
+            <tasks-list    
+                [listIdentifier]="'completed'"              
+                [listTitle]="'Completed'" 
+                [tasks]="completedTasks"></tasks-list>
+        </ng-container>
+               
+
+        
+       
+    </div>
+    
+</div>
