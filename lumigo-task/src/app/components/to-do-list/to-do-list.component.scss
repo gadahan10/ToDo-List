@@ -1,5 +1,6 @@
 .to-do-list-container {
-    // border: 1px solid #2e2d34;
+    position: relative;
+    overflow-x: hidden;
     background: white;
     border-radius: 0.6rem;
     height: 80rem;
@@ -67,5 +68,33 @@
     .tasks-list {
         width: 100%;
         margin-top: 3rem;
+    }
+
+    .reset-badge {
+        width: 4rem;
+        height: 4rem;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #db4d60;
+        padding: 2rem;
+        border-top-left-radius: 100%;
+        transition: .3s;
+        cursor: pointer;
+
+        &:hover {
+            z-index: 200;
+            transform: scale(1.25);
+            width: 5rem;
+            height: 5rem;    
+            background: #dd3047;        
+        }
+
+        img {
+            width: 3.6rem;
+            margin-left: 1.25rem;
+            margin-top: 1rem;
+            filter: invert(1);
+        }
     }
 }

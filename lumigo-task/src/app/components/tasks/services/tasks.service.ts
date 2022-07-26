@@ -78,4 +78,13 @@ export class TaskService {
             });            
     }
 
+    public clearLists(): void {
+        this.dataService.deleteAllTasks()
+            .subscribe((status: HttpStatusCode) => {
+                this.updateTasks$.next(true);
+            },
+            catchError => {
+                // NEED TO IMPLEMENT
+            }); 
+    }
 }
