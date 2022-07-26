@@ -1,0 +1,5 @@
+<div class="progress-bar">
+    <div class="progress-bar-inner" [ngStyle]="{'background': '#0094ff', 'width': (inProgress/totalTasks*100) + '%'}"></div>
+    <div class="progress-bar-inner" [ngStyle]="{'background': '#ffb000', 'width': (pending/totalTasks*100) + '%'}"></div>
+    <div class="progress-bar-inner" [ngStyle]="{'background': '#00B076', 'width': (completed/totalTasks*100) + '%'}"></div>
+</div>

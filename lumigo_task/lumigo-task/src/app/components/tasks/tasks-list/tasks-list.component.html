@@ -1,0 +1,20 @@
+<div class="tasks-list-container">
+    <div class="list-top">
+        <img class="list-arrow" 
+                src="assets/icons/down-arrow.svg" 
+                alt="arrow" 
+                (click)="isCollapsed = !isCollapsed"
+                [ngClass]="{'collapsed': isCollapsed}">
+        <h4 class="list-title">{{listTitle}} ({{tasks.length}})</h4>
+    </div>
+    <div class="list-items" [@showHideList]="isCollapsed" #listIdentifier="cdkDropList" cdkDropList [cdkDropListData]="tasks"
+        (cdkDropListDropped)="onDrop($event)">
+
+        <task-card *ngFor="let task of tasks; trackBy: trackById" 
+            [taskData]="task" cdkDrag [cdkDragDisabled]="isSearchActive" [isSearchActive]="isSearchActive"></task-card>
+
+        <div *ngIf="tasks.length == 0" class="empty-message">
+            <h4>{{listTitle}} list is empty</h4>
+        </div>
+    </div>
+</div>

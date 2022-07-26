@@ -1,0 +1,49 @@
+<div class="task-card" [taskStatus]="taskData.status" (mouseleave)="isMenuOpened = false;" [ngStyle]="{'cursor': (isSearchActive) ? 'auto' : 'grab'}">
+    <div class="task-card_left" >
+        <h4  *ngIf="!taskData.isEditMode; else editTitle" 
+            (dblclick)="onEditTitle()">{{taskData.title}}</h4>
+    </div>
+    <div class="task-card_right">
+        <img class="menu-icon"  src="assets/icons/ellipsis.svg" alt="menu" (click)="isMenuOpened = !isMenuOpened" *ngIf="!taskData.isEditMode; else editButtons">
+        <!-- Menu box start -->
+        <div class="menu-box" *ngIf="isMenuOpened">
+            <div class="menu-box-btn" (click)="onEditClick()">
+                <div class="menu-box-btn-circle" [ngStyle]="{'background': '#7C3AED'}"></div>
+                <h5 class="menu-box-btn-text">Edit</h5>
+            </div>
+            <hr>
+            <div class="menu-box-btn" (click)="onChangeStatus(1)">
+                <div class="menu-box-btn-circle" [ngStyle]="{'background': '#0094ff'}"></div>
+                <h5 class="menu-box-btn-text">In progress</h5>
+            </div>
+            <div class="menu-box-btn" (click)="onChangeStatus(2)">
+                <div class="menu-box-btn-circle" [ngStyle]="{'background': '#ffb000'}"></div>
+                <h5 class="menu-box-btn-text">Do later</h5>
+            </div>
+            <div class="menu-box-btn" (click)="onChangeStatus(3)">
+                <div class="menu-box-btn-circle" [ngStyle]="{'background': '#00B076'}"></div>
+                <h5 class="menu-box-btn-text">Completed</h5>
+            </div>
+            <hr>
+            <div class="menu-box-btn" (click)="onDeleteCard()">
+                <div class="menu-box-btn-circle" [ngStyle]="{'background': '#EF371F'}"></div>
+                <h5 class="menu-box-btn-text">Delete</h5>
+            </div>
+        </div>   
+        <!-- Menu box end -->     
+    </div>
+</div>
+
+<ng-template #editTitle>
+    <input #editTitleEl class="edit-title-input" 
+            type="text" 
+            [(ngModel)]="titleBackup" 
+            placeholder="Set task title">
+</ng-template>
+
+<ng-template #editButtons>
+    <div class="edit-action-buttons">
+        <img class="discard" src="assets/icons/delete.svg" alt="discard" (click)="discardChanges()">
+        <img class="save" src="assets/icons/check.svg" alt="save" (click)="saveChanges()">
+    </div>    
+</ng-template>
