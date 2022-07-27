@@ -55,8 +55,10 @@ export class ToDoListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		const tasks$ = this._taskService.updateTasksMessage
 			.pipe(
-				switchMap(() => this._taskService.loadTasks()),				
-				shareReplay(),
+				switchMap(() => this._taskService.loadTasks()
+				.pipe(
+					shareReplay()
+				)),			
 				takeUntil(this.destroyed$$)		
 			);
 			
