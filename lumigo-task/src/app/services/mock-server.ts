@@ -9,47 +9,21 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class DataService {
 
-    data: Task[] = [{
-		"taskId": 'pOInO576',
-		"title": "Plan trip",
-		"status": 1,
-        isEditMode: false
-	  }, {
-		"taskId": 'R5Te6L34',
-		"title": "Book flight tickets",
-		"status": 2,
-        isEditMode: false
-	  }, {
-		"taskId": 'XhLOjUZ6',
-		"title": "Go to gym",
-		"status": 1,
-        isEditMode: false
-	  }, {
-		"taskId": 'kWBEZWGE',
-		"title": "Buy a new laptop",
-		"status": 2,
-        isEditMode: false
-	  }, {
-		"taskId": 'YV8gSshA',
-		"title": "Cancel subscription to Netflix",
-		"status": 2,
-        isEditMode: false
-	  }, {
-		"taskId": 'xugsHPrO',
-		"title": "Order Wolt",
-		"status": 3,
-        isEditMode: false
-	  }];
+	data: Task[] = [];
+    
 
-    constructor() {}
+    constructor() {		
+		const data = localStorage.getItem('tasks');
+		this.data = (data != null) ? JSON.parse(data) : [];
+	}
 
     public loadDataFromLocalStorage(): Observable<Task[]> {
 		const data = localStorage.getItem('tasks');
-		console.log(data)
-		if (data != null) {
+		
+		if (data != null) {			
 			return of(JSON.parse(data));
 		}
-
+		
         return of (this.data);       
     }
 

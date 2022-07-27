@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { fromEvent, Observable } from 'rxjs';
-import { debounceTime, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { debounceTime, map, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Task } from 'src/app/models/task.model';
 import { RegexPattern } from 'src/app/shared/regex-patterns';
 import { TaskService } from '../tasks/services/tasks.service';
@@ -11,13 +11,15 @@ import { TaskService } from '../tasks/services/tasks.service';
 	templateUrl: './to-do-list.component.html',
 	styleUrls: ['./to-do-list.component.scss']
 })
-export class ToDoListComponent implements OnInit, AfterViewInit {
+export class ToDoListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	// Task lists
 	tasks$: Observable<Task[]>;
 	inProgressTasks$: Observable<Task[]>;
 	pendingTasks$: Observable<Task[]>;
 	completedTasks$: Observable<Task[]>;
+
+	destroyed$$ = new Subject<boolean>();
 
 	// New Task
 	newTaskForm = new FormGroup({
@@ -34,6 +36,7 @@ export class ToDoListComponent implements OnInit, AfterViewInit {
 	totalCompleted: number = 0;
 
 	constructor(private _taskService: TaskService, private cdRef: ChangeDetectorRef) { }
+	
 
 	ngAfterViewInit(): void {
 		this.cdRef.detectChanges();
@@ -53,7 +56,8 @@ export class ToDoListComponent implements OnInit, AfterViewInit {
 		const tasks$ = this._taskService.updateTasksMessage
 			.pipe(
 				switchMap(() => this._taskService.loadTasks()),				
-				shareReplay()		
+				shareReplay(),
+				takeUntil(this.destroyed$$)		
 			);
 			
 		this.inProgressTasks$ = tasks$
@@ -83,29 +87,16 @@ export class ToDoListComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	orderTasksLists(): void {
-	
-		this.inProgressTasks$ = this.tasks$
-			.pipe(				
-				map(tasks => tasks.filter(task => task.status == 1))
-			);
-
-		this.pendingTasks$ = this.tasks$
-			.pipe(
-				map(tasks => tasks.filter(task => task.status == 2))
-			);
-
-		this.completedTasks$ = this.tasks$
-			.pipe(
-				map(tasks => tasks.filter(task => task.status == 3))
-			);
-	}
-
 	onTaskSearch(): void {
 		this._taskService.onTaskSearch(this.searchVal);
 	}
 
 	public onReset(): void {
 		this._taskService.clearLists()
+	}
+
+	ngOnDestroy(): void {
+		this.destroyed$$.next(false);
+		this.destroyed$$.complete();
 	}
 }

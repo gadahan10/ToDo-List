@@ -17,11 +17,15 @@ export class ProgressBarComponent implements  OnChanges {
 	constructor() { }	
 
 	ngOnChanges(changes: SimpleChanges): void {		
+		console.log('ProgressBarComponent')
 		this.updateTotal();
 	}
 
 	private updateTotal(): void {
 		this.totalTasks = this.inProgress + this.pending + this.completed;
+		if (this.totalTasks == 0) {
+			this.totalTasks = 1;
+		}
 	}
 	
 

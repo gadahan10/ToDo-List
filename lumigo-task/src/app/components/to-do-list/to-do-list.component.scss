@@ -1,5 +1,9 @@
-.to-do-list-container {
+:host {
     position: relative;
+    overflow: hidden;
+}
+.to-do-list-container {
+    
     overflow-x: hidden;
     background: white;
     border-radius: 0.6rem;
